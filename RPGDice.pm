@@ -8,7 +8,7 @@ sub rollnow{
        $correction = int $_[2],
        $multi = int $_[3],
        $msg = $_[4];
-    my $ret = $msg . "\nRoll: ";
+    my $ret = $msg . "\n";
     my $sum=0, $sumrow, $t;
     $multi = 1 if $multi < 2;
     for (my $m = 0; $m < $multi; $m++){
