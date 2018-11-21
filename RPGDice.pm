@@ -38,7 +38,7 @@ sub roll{
        $cmd = lc $_[0];
     $cmd =~ s/\s+//g;
     return "示例 丢1个20面骰子，得数+2，重复3次\r\n指令 .r1d20+2*3" if $cmd =~ /^\.r[\s?help]+$/;
-    if ($cmd != ".r"){
+    if ($cmd ne ".r"){
         $c = int $1 if $cmd =~ /^\.r([\d]+)/;
         $s = int $1 if $cmd =~ /d([\d]+)/;
         $a = int $1 if $cmd =~ /([+-][\d]+)/;
@@ -52,7 +52,7 @@ sub call{
         my($client, $msg)=@_;
         return if not $msg->allow_plugin;
         return if $msg->content !~ /^\.[rR]/;
-        $client->reply_message($msg, roll($msg->content));
+        $client->reply_message($msg, roll($msg->content)."\r\n".$msg->time()." / ".time());
         $msg->allow_plugin(0);
     });
 }
