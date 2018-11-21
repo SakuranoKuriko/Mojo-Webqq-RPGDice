@@ -8,12 +8,12 @@ sub call{
         my($client, $msg)=@_;
         return if not $msg->allow_plugin;
         return if $msg->content !~ /^\.r/;
-        my r = int rr(1,20);
-        #my $key_word = $1;$key_word=~s/\s+//;
-        #my $reply = $reply[int rand($#reply+1)];
-        #$reply=~s/%/$key_word/g;
-        #$client->reply_message($msg,$reply,sub{$_[1]->from("bot")}) if $reply;
-        $client->reply_message($msg, "hello world");
+        my $msgs = $msg->content;
+        $msgs =~ s/\s+//g;
+        my $reply = "";
+        my $r = int rr(1,20);
+        $reply .= $r;
+        $client->reply_message($msg, $reply) if $reply;
         $msg->allow_plugin(0);
     });
 }
