@@ -32,8 +32,8 @@ sub rollnow{
                 $ret .= $t . ", ";
             }
             $sum += $sumrow + $correction;
-            $ret = substr($ret, 0, -2) . " => " . $sumrow;
-            $ret = $correction<0?"":"+" . $correction . "=" if $correction!=0;
+            $ret .= substr($ret, 0, -2) . " => " . $sumrow;
+            $ret .= $correction<0?"":"+" . $correction . "=" if $correction!=0;
         }
         $ret .= "\n";
     }
@@ -55,7 +55,7 @@ sub roll{
         $a = int $1 if $cmd =~ /([+-][\d]+)/;
         $m = int $1 if $cmd =~ /\*([\d]+)/;
     }
-    return rollnow($c, $s, $a, $m, $_[0], $user);
+    return rollnow($c, $s, $a, $m, $_[1], $user);
 }
 sub call{
     my $client = shift;
