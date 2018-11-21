@@ -17,7 +17,7 @@ sub rollnow{
         }
         else {
             $sumrow = 0;
-            for (my $i = 0; $i < count; $i++){
+            for (my $i = 0; $i < $count; $i++){
                 $t = int(rr(1, $sided)) + $correction;
                 $sumrow += $t;
                 $ret .= $t . ", ";
