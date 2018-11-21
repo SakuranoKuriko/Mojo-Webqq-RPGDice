@@ -8,8 +8,7 @@ sub rollnow{
        $correction = int $_[2],
        $multi = int $_[3],
        $msg = $_[4];
-    my $ret = $msg . "\n扔出骰子：";
-    $ret = $count."/".$sided."/".$correction."/".$multi . $ret;
+    my $ret = $msg . "\nRoll: ";
     my $sum=0, $sumrow, $t;
     $multi = 1 if $multi < 2;
     for (my $m = 0; $m < $multi; $m++){
@@ -28,7 +27,7 @@ sub rollnow{
         }
         $ret .= "\n";
     }
-    return $ret . "总和：" . $sum if $multi >1;
+    return $ret . "Total: " . $sum if $multi >1;
     return substr($ret, 0, -1);
 }
 sub roll{
