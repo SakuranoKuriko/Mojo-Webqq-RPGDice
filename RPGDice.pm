@@ -13,7 +13,9 @@ sub rollnow{
     $multi = 1 if $multi < 2;
     for (my $m = 0; $m < $multi; $m++){
         if ($count == 1){
-            $ret .= int(rr(1, $sided)) + $correction;
+            $t = int(rr(1, $sided)) + $correction;
+            $sum += $t;
+            $ret .= $t;
         }
         else {
             $sumrow = 0;
