@@ -20,21 +20,21 @@ sub rollnow{
     for (my $m = 0; $m < $multi; $m++){
         if ($count == 1){
             $t = int(rr(1, $sided));
-            $sum += $t + $correction;
             $ret .= $t;
             $ret .= $correction<0?"":"+" . $correction if $correction!=0;
+            $sum += $t + $correction;
         }
         else {
             $sumrow = 0;
             for (my $i = 0; $i < $count; $i++){
                 $t = int(rr(1, $sided));
-                $sumrow += $t;
                 $ret .= $t . ", ";
+                $sumrow += $t;
             }
-            $sumrow += $correction;
-            $sum += $sumrow;
             $ret = substr($ret, 0, -2) . " -> " . $sumrow;
             $ret .= $correction<0?"":"+" . $correction . " = ".$sumrow if $correction!=0;
+            $sumrow += $correction;
+            $sum += $sumrow;
         }
         $ret .= "\n";
     }
