@@ -33,7 +33,7 @@ sub rollnow{
             }
             $ret = substr($ret, 0, -2) . " -> " . $sumrow;
             $sumrow += $correction;
-            $ret .= $correction<0?"":"+" . $correction . " = ".($sumrow+$correction) if $correction!=0;
+            $ret .= $correction<0?"":"+" . $correction . " = " . $sumrow if $correction!=0;
             $sum += $sumrow;
         }
         $ret .= "\n";
