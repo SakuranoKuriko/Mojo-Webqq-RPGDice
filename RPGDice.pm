@@ -37,7 +37,7 @@ sub roll{
        $m = 1,
        $cmd = lc $_[0];
     $cmd =~ s/\s+//g;
-    return "示例 丢1个20面骰子，得数+2，重复3次\r\n指令 .r1d20+2*3" if $cmd =~ /^.r[\s?help]+$/;
+    return "示例 丢1个20面骰子，得数+2，重复3次\r\n指令 .r1d20+2*3" if $cmd =~ /^\.r[\s?help]+$/;
     if ($cmd != ".r"){
         $c = int $1 if $cmd =~ /^\.r([\d]+)/;
         $s = int $1 if $cmd =~ /d([\d]+)/;
