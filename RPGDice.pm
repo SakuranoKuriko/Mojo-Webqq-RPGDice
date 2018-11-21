@@ -52,7 +52,7 @@ sub call{
     $client->on(receive_message=>sub{
         my($client, $msg)=@_;
         return if not $msg->allow_plugin;
-        return if $mst->time()+5<time();
+        return if $msg->time()+5<time();
         return if $msg->content !~ /^\.[rR]/;
         $client->reply_message($msg, roll($msg->content));
         $msg->allow_plugin(0);
