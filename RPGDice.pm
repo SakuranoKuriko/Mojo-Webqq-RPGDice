@@ -9,7 +9,7 @@ sub rollnow{
        $multi = int $_[3],
        $msg = $_[4],
        $user = $_[5];
-    my $ret = "<" . $user .">:". $msg . "\n扔出骰子：";
+    my $ret = "<" . $user .">: ". $msg . "\n扔出骰子：";
     my $sum=0, $sumrow, $t;
     if ($multi < 2){
         $multi = 1;
