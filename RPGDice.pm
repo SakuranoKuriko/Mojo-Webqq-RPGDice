@@ -7,29 +7,37 @@ sub rollnow{
        $sided = int $_[1],
        $correction = int $_[2],
        $multi = int $_[3],
-       $msg = $_[4];
-    my $ret = $msg . "\n";
+       $msg = $_[4],
+       $user = $_[5];
+    my $ret = "<" . $user .">:". $msg . "\n扔出骰子：";
     my $sum=0, $sumrow, $t;
-    $multi = 1 if $multi < 2;
+    if ($multi < 2){
+        $multi = 1;
+    }
+    else {
+        $ret .= "\n";
+    }
     for (my $m = 0; $m < $multi; $m++){
         if ($count == 1){
-            $t = int(rr(1, $sided)) + $correction;
-            $sum += $t;
+            $t = int(rr(1, $sided));
+            $sum += $t + $correction;
             $ret .= $t;
+            $ret .= $correction<0?"":"+" . $correction if $correction!=0;
         }
         else {
             $sumrow = 0;
             for (my $i = 0; $i < $count; $i++){
-                $t = int(rr(1, $sided)) + $correction;
+                $t = int(rr(1, $sided));
                 $sumrow += $t;
                 $ret .= $t . ", ";
             }
+            $sum += $sumrow + $correction;
             $ret = substr($ret, 0, -2) . " => " . $sumrow;
-            $sum += $sumrow;
+            $ret = $correction<0?"":"+" . $correction . "=" if $correction!=0;
         }
         $ret .= "\n";
     }
-    return $ret . "Total: " . $sum if $multi >1;
+    return $ret . "总和：" . $sum if $multi >1;
     return substr($ret, 0, -1);
 }
 sub roll{
@@ -37,7 +45,8 @@ sub roll{
        $s = 20,
        $a = 0,
        $m = 1,
-       $cmd = lc $_[0];
+       $user = $_[0],
+       $cmd = lc $_[1];
     $cmd =~ s/\s+//g;
     return "示例 丢1个20面骰子，得数+2，重复3次\r\n指令 .r1d20+2*3" if $cmd =~ /^\.r[\s?help]+$/;
     if ($cmd ne ".r"){
@@ -46,7 +55,7 @@ sub roll{
         $a = int $1 if $cmd =~ /([+-][\d]+)/;
         $m = int $1 if $cmd =~ /\*([\d]+)/;
     }
-    return rollnow($c, $s, $a, $m, $_[0]);
+    return rollnow($c, $s, $a, $m, $_[0], $user);
 }
 sub call{
     my $client = shift;
@@ -55,7 +64,7 @@ sub call{
         return if not $msg->allow_plugin;
         return if $msg->time()+5<time();
         return if $msg->content !~ /^\.[rR]/;
-        $client->reply_message($msg, roll($msg->content));
+        $client->reply_message($msg, roll($msg->sender->displayname, $msg->content));
         $msg->allow_plugin(0);
     });
 }
