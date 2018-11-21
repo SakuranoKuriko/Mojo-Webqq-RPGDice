@@ -9,6 +9,7 @@ sub rollnow{
        $multi = int $_[3],
        $msg = $_[4];
     my $ret = $msg . "\n扔出骰子：";
+    $ret = $count."/".$sided."/".$correction."/".$multi . $ret;
     my $sum=0, $sumrow, $t;
     $multi = 1 if $multi < 2;
     for (my $m = 0; $m < $multi; $m++){
@@ -51,8 +52,9 @@ sub call{
     $client->on(receive_message=>sub{
         my($client, $msg)=@_;
         return if not $msg->allow_plugin;
+        return if $mst->time()+5<time();
         return if $msg->content !~ /^\.[rR]/;
-        $client->reply_message($msg, roll($msg->content)."\r\n".$msg->time()." / ".time());
+        $client->reply_message($msg, roll($msg->content));
         $msg->allow_plugin(0);
     });
 }
