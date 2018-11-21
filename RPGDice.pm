@@ -22,7 +22,7 @@ sub rollnow{
                 $sumrow += $t;
                 $ret .= $t . ", ";
             }
-            $ret = substr($ret, 0, -1) . "=> " . $sumrow;
+            $ret = substr($ret, 0, -2) . " => " . $sumrow;
             $sum += $sumrow;
         }
         $ret .= "\n";
