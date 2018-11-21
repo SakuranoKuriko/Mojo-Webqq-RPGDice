@@ -1,6 +1,5 @@
 package Mojo::Webqq::Plugin::RPGDice;
 $Mojo::Webqq::Plugin::FuckDaShen::PRIORITY = 96;
-#our $AUTO_CALL = 0;
 sub rr{ rand($_[1]-$_[0])+$_[0] }
 sub call{
     my $client = shift;
